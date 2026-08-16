@@ -1,0 +1,249 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy — Capito"
+  description="How Capito collects, stores, and protects your personal data under GDPR."
+>
+  <article class="privacy">
+    <header class="privacy-header">
+      <h1>Privacy Policy</h1>
+      <p class="last-updated">Last updated: August 2026</p>
+    </header>
+
+    <section>
+      <h2>01 · Controller</h2>
+      <p>Capito is operated from the Netherlands. For all privacy-related matters, contact <a href="mailto:admin@capito.news">admin@capito.news</a>. We will respond within 30 days.</p>
+    </section>
+
+    <section>
+      <h2>02 · Data — What we collect and why</h2>
+      <p>We collect only what is necessary to provide the service. Legal basis: contract performance (Art. 6(1)(b) GDPR), except server logs which are processed under legitimate interest (Art. 6(1)(f) GDPR).</p>
+      <dl>
+        <dt>Email address</dt>
+        <dd>Used to identify your account and send authentication codes. We use one-time codes; there are no passwords.</dd>
+        <dt>User ID</dt>
+        <dd>A randomly generated identifier created at registration. Used internally to link all account data.</dd>
+        <dt>Analysis history</dt>
+        <dd>The URL, title, domain, and credibility score of articles you have analyzed. Used to display your history and enforce plan limits.</dd>
+        <dt>Credit balance and transactions</dt>
+        <dd>How many analyses remain on your plan, and a timestamped log of credits granted and consumed. Used for billing and limit enforcement.</dd>
+        <dt>Subscription plan</dt>
+        <dd>Which plan you are on and when it changed.</dd>
+        <dt>Server logs</dt>
+        <dd>Authentication events, credit activity, and analysis outcomes keyed to your user ID. Used for security monitoring and debugging. Retained for 90 days.</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>03 · Limits — What we do not collect</h2>
+      <p>The raw text of an article is never stored or linked to your identity. When you analyze an article, the content is sent to our analysis engine and discarded immediately after processing. We store the result — the URL, title, domain, score, and findings — linked to your user ID as part of your analysis history.</p>
+      <p>We use a single httpOnly cookie to maintain your authenticated session. This cookie is strictly necessary for the service to function; it cannot be read by JavaScript and is not used to track you across sites. We use no analytics, advertising, or tracking cookies of any kind.</p>
+      <p>We do not sell, rent, or share your personal data with third parties for any commercial purpose.</p>
+    </section>
+
+    <section>
+      <h2>04 · Retention — How long we keep your data</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Retained until</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Account, profile, analysis history</td>
+            <td>Account deletion</td>
+          </tr>
+          <tr>
+            <td>Credit balance</td>
+            <td>Account deletion</td>
+          </tr>
+          <tr>
+            <td>Credit transaction log</td>
+            <td>7 years (Dutch commercial records law)</td>
+          </tr>
+          <tr>
+            <td>Subscription history</td>
+            <td>Account deletion</td>
+          </tr>
+          <tr>
+            <td>Server logs</td>
+            <td>90 days</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Deleting your account removes all personal data, except credit transaction records retained under Dutch commercial law.</p>
+    </section>
+
+    <section>
+      <h2>05 · Storage — Where your data is stored</h2>
+      <p>All personal data is stored on servers operated by Hetzner Online GmbH in Germany. No personal data leaves the European Union.</p>
+      <p>Sub-processors:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Purpose</th>
+            <th>Data shared</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hetzner Online GmbH</td>
+            <td>Servers and storage</td>
+            <td>All personal data</td>
+            <td>Germany (EU)</td>
+          </tr>
+          <tr>
+            <td>MailerSend</td>
+            <td>Authentication emails</td>
+            <td>Email address only</td>
+            <td>Belgium (EU)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>MailerSend may transfer data to sub-processors outside the EU. These transfers are covered by Standard Contractual Clauses approved by the European Commission.</p>
+    </section>
+
+    <section>
+      <h2>06 · Rights — Your rights under GDPR</h2>
+      <dl>
+        <dt>Access</dt>
+        <dd>Request a copy of the personal data we hold about you.</dd>
+        <dt>Correction</dt>
+        <dd>Have inaccurate data corrected.</dd>
+        <dt>Erasure</dt>
+        <dd>Delete your account and all associated data, subject to the exceptions in section 04.</dd>
+        <dt>Restriction</dt>
+        <dd>Limit how we process your data in certain circumstances.</dd>
+        <dt>Portability</dt>
+        <dd>Receive your data in a machine-readable format.</dd>
+        <dt>Objection</dt>
+        <dd>Object to processing carried out under legitimate interest.</dd>
+      </dl>
+      <p>To exercise any of these rights, email <a href="mailto:admin@capito.news">admin@capito.news</a>. We will respond within 30 days.</p>
+      <p>You also have the right to lodge a complaint with the Dutch data protection authority: <a href="https://www.autoriteitpersoonsgegevens.nl" target="_blank" rel="noopener noreferrer">Autoriteit Persoonsgegevens</a>.</p>
+    </section>
+
+    <section>
+      <h2>07 · Changes — Updates to this policy</h2>
+      <p>If we make material changes to this policy, registered users will be notified by email before the change takes effect.</p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .privacy {
+    padding: 80px 0 120px;
+    max-width: 640px;
+  }
+
+  .privacy-header {
+    margin-bottom: 56px;
+  }
+
+  .privacy-header h1 {
+    font-family: var(--font-sans);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0 0 8px;
+  }
+
+  .last-updated {
+    font-size: var(--font-size-base);
+    color: var(--text-tertiary);
+    margin: 0;
+  }
+
+  section {
+    margin-bottom: 48px;
+  }
+
+  h2 {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 16px;
+  }
+
+  p {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0 0 12px;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--color-border-strong);
+  }
+
+  a:hover {
+    text-decoration-color: var(--text-secondary);
+  }
+
+  dl {
+    margin: 0;
+  }
+
+  dt {
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 20px 0 4px;
+  }
+
+  dt:first-child {
+    margin-top: 0;
+  }
+
+  dd {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-base);
+    margin: 16px 0;
+  }
+
+  th {
+    text-align: left;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 8px 12px 8px 0;
+    border-bottom: 1px solid var(--color-border-default);
+  }
+
+  td {
+    color: var(--text-secondary);
+    padding: 10px 12px 10px 0;
+    border-bottom: 1px solid var(--color-border-default);
+    vertical-align: top;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+</style>

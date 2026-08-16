@@ -1,0 +1,152 @@
+---
+import LeaderboardRow from './LeaderboardRow.astro';
+import SectionLabel from './SectionLabel.astro';
+import type { Outlet } from '../data/fixtures';
+
+interface Props {
+  outlets: Outlet[];
+}
+
+const { outlets } = Astro.props;
+const top = outlets.slice(0, 10);
+const bottom = outlets.slice(-5);
+---
+
+<div class="leaderboard">
+  <div class="leaderboard-brand">
+    <div class="brand-label">
+      <span class="brand-pip" />
+      <SectionLabel label="the capito index" />
+    </div>
+    <p class="brand-attribution">Every score below comes from the same analysis that runs in your browser.</p>
+  </div>
+
+  <div class="leaderboard-cols">
+    <span class="col-rank"><SectionLabel label="#" /></span>
+    <span class="col-name"><SectionLabel label="Outlet" /></span>
+    <span class="col-tag"><SectionLabel label="Signature move" /></span>
+    <span class="col-score"><SectionLabel label="Score" /></span>
+  </div>
+
+  {top.map((outlet) => <LeaderboardRow outlet={outlet} />)}
+
+  <div class="relegation-divider"></div>
+
+  {bottom.map((outlet) => <LeaderboardRow outlet={outlet} danger />)}
+
+  <p class="leaderboard-caption">
+    Rolling 6 months · updated weekly · <a href="/methodology">methodology →</a>
+  </p>
+</div>
+
+<style>
+  .leaderboard {
+    width: 100%;
+  }
+
+  .leaderboard-brand {
+    padding: 16px 0 14px;
+    border-bottom: 1px solid var(--color-border-default);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .brand-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .brand-pip {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-accent-yellow);
+    box-shadow: 0 0 6px 1px var(--color-pip-glow);
+    flex-shrink: 0;
+  }
+
+  .brand-attribution {
+    margin: 0;
+    font-size: 11px !important;
+    line-height: 1.5;
+    color: var(--text-tertiary);
+    max-width: 380px;
+    text-align: right;
+  }
+
+  .leaderboard-cols {
+    display: grid;
+    grid-template-columns: 28px 1fr 160px 130px;
+    gap: 16px;
+    padding: 10px 0 8px;
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .col-rank { text-align: right; }
+  .col-n { text-align: right; }
+  .col-score { text-align: right; }
+
+  .relegation-divider {
+    border-top: 1px solid rgba(226, 75, 74, 0.2);
+    margin-top: 4px;
+  }
+
+  .leaderboard-more {
+    margin-top: 0;
+  }
+
+  .more-toggle {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    list-style: none;
+    border-bottom: 1px solid var(--color-border-default);
+    transition: color 0.12s;
+  }
+
+  .more-toggle::-webkit-details-marker { display: none; }
+
+  .more-toggle:hover {
+    color: var(--text-secondary);
+  }
+
+  details[open] .more-toggle {
+    border-bottom: none;
+  }
+
+  .leaderboard-caption {
+    margin: 16px 0 0;
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+
+  .leaderboard-caption a {
+    color: var(--text-tertiary);
+    text-decoration: none;
+    transition: color 0.12s;
+  }
+
+  .leaderboard-caption a:hover {
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 640px) {
+    .leaderboard-cols {
+      grid-template-columns: 28px 1fr 130px;
+    }
+    .col-tag {
+      display: none;
+    }
+
+    .brand-attribution {
+      text-align: left;
+    }
+  }
+</style>

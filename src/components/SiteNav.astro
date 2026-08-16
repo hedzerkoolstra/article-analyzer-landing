@@ -1,0 +1,87 @@
+---
+import BrowserCTA from "./BrowserCTA.astro";
+---
+
+<header class="site-nav-wrap">
+<nav class="site-nav">
+  <a href="/" class="wordmark">
+    <span class="pip" />·&nbsp;capito
+  </a>
+  <div class="nav-links">
+    <a href="/#leaderboard">Leaderboard</a>
+    <a href="/techniques">Techniques</a>
+    <a href="/methodology">Methodology</a>
+    <a href="/#pricing">Pricing</a>
+  </div>
+  <BrowserCTA />
+</nav>
+</header>
+
+<style>
+  .site-nav-wrap {
+    border-bottom: 1px solid var(--color-border-default);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgb(var(--background));
+    backdrop-filter: blur(8px);
+  }
+
+  .site-nav {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--color-accent-yellow);
+    text-decoration: none;
+    white-space: nowrap;
+    text-shadow: 0 0 18px var(--color-pip-glow);
+  }
+
+  .pip {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent-yellow);
+    box-shadow: 0 0 8px 2px var(--color-pip-glow);
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.12s;
+  }
+
+  .nav-links a:hover {
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 640px) {
+    .nav-links {
+      display: none;
+    }
+  }
+</style>

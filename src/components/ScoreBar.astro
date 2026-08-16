@@ -1,0 +1,38 @@
+---
+interface Props {
+  score: number;
+}
+const { score } = Astro.props;
+
+const filled = Math.round(score / 10);
+const segments = Array.from({ length: 10 }, (_, i) => i < filled);
+
+function segmentColor(score: number): string {
+  if (score >= 65) return "var(--color-score-high)";
+  if (score >= 35) return "var(--color-score-medium)";
+  return "var(--color-score-low)";
+}
+
+const color = segmentColor(score);
+---
+
+<div class="score-bar" role="meter" aria-valuenow={score} aria-valuemin={1} aria-valuemax={100} aria-label={`Score ${score} out of 100`}>
+  {segments.map((active) => (
+    <span class={`segment ${active ? "active" : ""}`} style={active ? `background: ${color}` : ""} />
+  ))}
+</div>
+
+<style>
+  .score-bar {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+  }
+  .segment {
+    width: 8px;
+    height: 12px;
+    border-radius: 1px;
+    background: var(--color-border-strong);
+    flex-shrink: 0;
+  }
+</style>

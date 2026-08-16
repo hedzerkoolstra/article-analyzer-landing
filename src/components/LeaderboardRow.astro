@@ -1,0 +1,110 @@
+---
+import ScoreBar from './ScoreBar.astro';
+import TypeTag from './TypeTag.astro';
+import type { Outlet } from '../data/fixtures';
+
+interface Props {
+  outlet: Outlet;
+  danger?: boolean;
+}
+
+const { outlet, danger = false } = Astro.props;
+
+function scoreColor(score: number): string {
+  if (score >= 65) return "var(--color-score-high)";
+  if (score >= 35) return "var(--color-score-medium)";
+  return "var(--color-score-low)";
+}
+---
+
+<a href={`/outlets/${outlet.slug}`} class={`leaderboard-row ${danger ? "danger" : ""}`}>
+  <span class="col-rank">{outlet.rank}</span>
+  <span class="col-name">{outlet.name}</span>
+  <span class="col-tag">
+    <TypeTag typeSlug={outlet.signatureMove.typeSlug} typeLabel={outlet.signatureMove.typeLabel} />
+  </span>
+  <span class="col-score">
+    <ScoreBar score={outlet.score} />
+    <span class="score-num" style={`color: ${scoreColor(outlet.score)}`}>{outlet.score}</span>
+  </span>
+</a>
+
+<style>
+  .leaderboard-row {
+    display: grid;
+    grid-template-columns: 28px 1fr 160px 130px;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-border-default);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .leaderboard-row.danger {
+    background: rgba(226, 75, 74, 0.03);
+  }
+
+  .leaderboard-row.danger .col-rank,
+  .leaderboard-row.danger .col-n {
+    color: var(--color-score-low);
+    opacity: 0.6;
+  }
+
+  .leaderboard-row:hover .col-name {
+    color: var(--text-primary);
+    transition: color 0.1s;
+  }
+
+  .col-rank {
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-tertiary);
+    text-align: right;
+  }
+
+  .col-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .col-tag {
+    display: flex;
+  }
+
+  .col-n {
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-tertiary);
+    text-align: right;
+  }
+
+  .col-score {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .score-num {
+    font-size: 18px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    width: 32px;
+    text-align: right;
+  }
+
+  @media (max-width: 640px) {
+    .leaderboard-row {
+      grid-template-columns: 28px 1fr 130px;
+    }
+    .col-tag {
+      display: none;
+    }
+  }
+</style>

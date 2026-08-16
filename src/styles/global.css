@@ -47,6 +47,11 @@
   --color-score-medium: #ef9f27;
   --color-score-high: #97c459;
 
+  /* Typography */
+  --font-sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --color-pip-glow: rgba(255, 216, 77, 0.55);
+
   /* Spacing scale */
   --spacing-xs: 4px;
   --spacing-sm: 8px;

@@ -1,0 +1,73 @@
+---
+interface Props {
+  typeSlug: string;
+  typeLabel: string;
+  tooltip?: string;
+}
+const { typeLabel, tooltip } = Astro.props;
+---
+
+<span class="type-tag-wrap">
+  <span class="type-tag">
+    <span class="pip" />
+    {typeLabel}
+  </span>
+  {tooltip && <span class="tooltip" role="tooltip">{tooltip}</span>}
+</span>
+
+<style>
+  .type-tag-wrap {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .type-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-accent-yellow-text);
+    background: var(--color-accent-yellow-soft);
+    border: 1px solid var(--color-accent-yellow-border);
+    border-radius: 4px;
+    padding: 2px 7px 2px 5px;
+    cursor: default;
+    white-space: nowrap;
+  }
+
+  .pip {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-accent-yellow);
+    flex-shrink: 0;
+  }
+
+  .tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-surface-overlay);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--color-border-mid);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    max-width: 220px;
+    white-space: normal;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.12s;
+    z-index: 10;
+  }
+
+  .type-tag-wrap:hover .tooltip {
+    opacity: 1;
+  }
+</style>

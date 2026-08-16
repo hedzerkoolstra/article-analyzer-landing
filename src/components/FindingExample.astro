@@ -1,0 +1,54 @@
+---
+import TypeTag from "./TypeTag.astro";
+
+interface Props {
+  quote: string;
+  typeSlug: string;
+  typeLabel: string;
+  findingLabel: string;
+  tooltip?: string;
+}
+const { quote, typeSlug, typeLabel, findingLabel, tooltip } = Astro.props;
+---
+
+<figure class="finding">
+  <blockquote class="finding-quote">"{quote}"</blockquote>
+  <figcaption class="finding-meta">
+    <TypeTag typeSlug={typeSlug} typeLabel={typeLabel} tooltip={tooltip} />
+    <span class="finding-label">{findingLabel}</span>
+  </figcaption>
+</figure>
+
+<style>
+  .finding {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-default);
+    border-radius: 8px;
+  }
+
+  .finding-quote {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-primary);
+  }
+
+  .finding-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .finding-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+</style>

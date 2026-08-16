@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Article Analyzer icon">
+  <rect width="128" height="128" rx="22" fill="#0b0b0d"/>
+  <circle cx="64" cy="64" r="36" fill="none" stroke="#ffd84d" stroke-width="10"/>
+  <circle cx="64" cy="64" r="9" fill="#ffd84d"/>
+</svg>

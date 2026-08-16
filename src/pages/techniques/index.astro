@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionLabel from '../../components/SectionLabel.astro';
+import TypeTag from '../../components/TypeTag.astro';
+import { taxonomy } from '../../data/fixtures';
+---
+
+<BaseLayout
+  title="Technique Library — Capito"
+  description="Every propaganda, framing, and logical fallacy technique Capito detects. Grouped by family, each entry is a field guide: definition, specimen, habitat, and counter-move."
+>
+  <div class="techniques-index">
+    <header class="page-header">
+      <p class="eyebrow"><SectionLabel label="Field guide" /></p>
+      <h1 class="page-title">Technique library</h1>
+      <p class="page-desc">
+        {taxonomy.reduce((n, t) => n + t.subtypes.length, 0)} techniques Capito detects — grouped by family.
+        Each entry is a specimen: definition, habitat, identifying marks, counter-move.
+      </p>
+    </header>
+
+    <div class="type-sections">
+      {taxonomy.map((type) => (
+        <section class="type-section" id={type.typeSlug}>
+          <div class="type-header">
+            <TypeTag typeSlug={type.typeSlug} typeLabel={type.typeLabel} />
+            <span class="type-count">{type.subtypes.length}</span>
+          </div>
+          <div class="subtype-rows">
+            {type.subtypes.map((sub) => (
+              <a href={`/techniques/${sub.slug}`} class="subtype-row">
+                <span class="sub-name">{sub.label}</span>
+                <span class="sub-def">{sub.definition}</span>
+                <span class="sub-freq">{sub.frequency}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .techniques-index {
+    padding-bottom: 80px;
+  }
+
+  .page-header {
+    padding: 56px 0 48px;
+    border-bottom: 0.5px solid var(--color-border-default);
+  }
+
+  .eyebrow {
+    margin: 0 0 16px;
+  }
+
+  .page-title {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(40px, 5vw, 60px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin: 0 0 16px;
+  }
+
+  .page-desc {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 480px;
+  }
+
+  .type-sections {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .type-section {
+    border-bottom: 0.5px solid var(--color-border-default);
+    padding: 32px 0;
+  }
+
+  .type-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .type-count {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .subtype-rows {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subtype-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 52px;
+    gap: 24px;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 0.5px solid var(--color-border-default);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.1s;
+  }
+
+  .subtype-row:last-child {
+    border-bottom: none;
+  }
+
+  .subtype-row:hover .sub-name {
+    color: var(--text-primary);
+  }
+
+  .subtype-row:hover .sub-def {
+    color: var(--text-secondary);
+  }
+
+  .sub-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color 0.1s;
+    white-space: nowrap;
+  }
+
+  .sub-def {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-tertiary);
+    transition: color 0.1s;
+  }
+
+  .sub-freq {
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-tertiary);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .subtype-row {
+      grid-template-columns: 1fr 52px;
+      gap: 16px;
+    }
+
+    .sub-def {
+      display: none;
+    }
+  }
+</style>

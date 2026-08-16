@@ -1,194 +1,276 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import BrowserCTA from '../components/BrowserCTA.astro';
+import LeaderboardTable from '../components/LeaderboardTable.astro';
+import PanelMock from '../components/PanelMock.astro';
+import PricingCard from '../components/PricingCard.astro';
+import SectionLabel from '../components/SectionLabel.astro';
+import { outlets } from '../data/fixtures';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Capito — Read without being played</title>
-    <meta name="description" content="Capito detects propaganda techniques, framing, and logical fallacies in online articles. No politics. Just technique." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <main class="page">
+<BaseLayout
+  title="Capito — The news, ranked by how hard it's trying to play you"
+  description="Capito detects propaganda techniques, framing, and logical fallacies in online articles. No politics. Just technique."
+>
+  <slot name="head" slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Capito Media Credibility Leaderboard",
+      "description": "News outlets ranked by propaganda technique density. Rolling 6-month window, updated weekly.",
+      "itemListElement": outlets.slice(0, 10).map((o, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "name": o.name,
+        "url": `https://capito.news/outlets/${o.slug}`,
+      })),
+    })} />
+  </slot>
 
-      <!-- Nav -->
-      <nav class="nav">
-        <span class="logo">Capito</span>
-        <BrowserCTA />
-      </nav>
+  <!-- Product hero -->
+  <section class="hero">
+    <p class="hero-eyebrow"><SectionLabel label="Browser extension" /></p>
+    <h1 class="hero-headline">Read without<br />being played.</h1>
+    <p class="hero-sub">Capito flags propaganda techniques, logical fallacies, and framing — anchored to the exact passage.</p>
+    <BrowserCTA size="lg" />
+  </section>
 
-      <!-- Hero -->
-      <section class="hero">
-        <p class="eyebrow">Browser extension</p>
-        <h1 class="headline">Read without<br />being played.</h1>
-        <p class="subhead">
-          Capito flags propaganda techniques, logical fallacies, and framing in
-          the articles you read — anchored to the exact passage, not just a
-          vague verdict.
-        </p>
-        <div class="hero-actions">
-          <BrowserCTA size="lg" />
-        </div>
-      </section>
+  <!-- Leaderboard -->
+  <section class="leaderboard-section" id="leaderboard">
+    <LeaderboardTable outlets={outlets} />
+  </section>
 
-      <!-- Three pillars -->
-      <section class="pillars">
-        <div class="pillar">
-          <h3>Score at a glance</h3>
-          <p>A credibility score (1–10) that measures how hard an article leans on manipulation — not which direction it leans.</p>
-        </div>
-        <div class="pillar">
-          <h3>Pinned to the passage</h3>
-          <p>Every finding is anchored to the exact quote. Hover a finding, the passage lights up. No ambiguity about where the spin is.</p>
-        </div>
-        <div class="pillar">
-          <h3>Named and explained</h3>
-          <p>Fear appeal, false dichotomy, ad hominem — every technique is named and explained. Capito shows the receipt, not just the bill.</p>
-        </div>
-      </section>
+  <!-- Bridge CTA -->
+  <section class="bridge">
+    <p class="bridge-line">That's their average. See what the article in front of you is doing.</p>
+    <BrowserCTA size="lg" />
+  </section>
 
-      <!-- No politics callout -->
-      <section class="callout">
-        <h2>No political axis.</h2>
-        <p>
-          Every other tool rates left vs. right. Capito ignores direction entirely
-          and measures technique — how an article tries to influence you, not which
-          way. That makes it usable across the political spectrum, by design.
-        </p>
-      </section>
+  <!-- How it works -->
+  <section class="how" id="how-it-works">
+    <p class="section-eyebrow"><SectionLabel label="How it works" /></p>
 
-      <!-- Pricing -->
-      <section class="pricing">
-        <h2>Pricing</h2>
-        <div class="plans">
-          <div class="plan">
-            <div class="plan-name">Free</div>
-            <div class="plan-price">€0</div>
-            <div class="plan-desc">3 analyses / month. Full analysis every time — score, verdict, all findings. The gate is volume, not quality.</div>
-            <a href="#" class="btn-primary">Get started</a>
-          </div>
-          <div class="plan plan-featured">
-            <div class="plan-badge">Most popular</div>
-            <div class="plan-name">Plus</div>
-            <div class="plan-price">€4<span>/mo</span></div>
-            <div class="plan-desc">30 analyses / month plus analysis history — every past article saved and searchable.</div>
-            <a href="#" class="btn-primary">Get Plus</a>
-          </div>
-          <div class="plan">
-            <div class="plan-name">Pro</div>
-            <div class="plan-price">€16<span>/mo</span></div>
-            <div class="plan-desc">300 analyses / month. For power users, journalists, and researchers who read a lot.</div>
-            <a href="#" class="btn-primary">Get Pro</a>
-          </div>
-        </div>
-      </section>
+    <div class="how-body">
+      <div class="how-demo">
+        <PanelMock />
+        <p class="how-caption">What Capito shows you while you read. Score, verdict, findings — anchored to the exact passage.</p>
+      </div>
 
-      <!-- Footer -->
-      <footer class="footer">
-        <span>Capito © 2026</span>
-        <span class="footer-tagline">Built by one person who finds propaganda funny.</span>
-      </footer>
+      <div class="pillars">
+      <div class="pillar">
+        <h3>Score at a glance</h3>
+        <p>A credibility score (1–10) that measures how hard an article leans on manipulation — not which direction it leans.</p>
+      </div>
+      <div class="pillar">
+        <h3>Pinned to the passage</h3>
+        <p>Every finding is anchored to the exact quote. Hover a finding, the passage lights up. No ambiguity about where the spin is.</p>
+      </div>
+      <div class="pillar">
+        <h3>Named and explained</h3>
+        <p>Fear appeal, false dichotomy, ad hominem — every technique is named and explained. Capito shows the receipt, not just the bill.</p>
+      </div>
+      </div>
+    </div>
+  </section>
 
-    </main>
-  </body>
-</html>
+  <!-- What Capito is not -->
+  <section class="not-section">
+    <div class="not-list">
+      <div class="not-item">
+        <p class="not-verdict">Not a fact-checker.</p>
+        <p class="not-sub">Fact-checking needs retrieval and evidence chains. Capito counts persuasion techniques. That's it.</p>
+      </div>
+      <div class="not-item">
+        <p class="not-verdict">Not a political compass.</p>
+        <p class="not-sub">No left, no right, no spectrum. Technique density only.</p>
+      </div>
+      <div class="not-item">
+        <p class="not-verdict">Not a startup.</p>
+        <p class="not-sub">Built by one person. No team, no investors, no "we".</p>
+      </div>
+      <div class="not-item">
+        <p class="not-verdict">Not a black box.</p>
+        <p class="not-sub">Every finding names its technique and explains why it works. The methodology is public.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- No politics callout -->
+  <section class="callout">
+    <h2>No political axis.</h2>
+    <p>
+      Every other tool rates left vs. right. Capito ignores direction entirely
+      and measures technique — how an article tries to influence you, not which
+      way. That makes it usable across the political spectrum, by design.
+    </p>
+  </section>
+
+  <!-- Pricing -->
+  <section class="pricing" id="pricing">
+    <p class="section-eyebrow"><SectionLabel label="Pricing" /></p>
+    <h2 class="pricing-heading">Full analysis on every tier.</h2>
+    <div class="plans">
+      <PricingCard
+        name="Free"
+        price="€0"
+        description="3 analyses / month. Full analysis every time — score, verdict, all findings. The gate is volume, not quality."
+        cta="Get started"
+      />
+      <PricingCard
+        name="Plus"
+        price="€4"
+        period="/mo"
+        description="30 analyses / month plus analysis history — every past article saved and searchable."
+        cta="Get Plus"
+        featured={true}
+      />
+      <PricingCard
+        name="Pro"
+        price="€16"
+        period="/mo"
+        description="300 analyses / month. For power users, journalists, and researchers who read a lot."
+        cta="Get Pro"
+      />
+    </div>
+  </section>
+</BaseLayout>
 
 <style>
-  .page {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* Nav */
-  .nav {
+  /* Product hero */
+  .hero {
+    padding: 56px 0 48px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
     border-bottom: 1px solid var(--color-border-default);
   }
 
-  .logo {
-    font-weight: 600;
-    font-size: 16px;
-    color: var(--color-accent-yellow);
-    letter-spacing: -0.01em;
+  .hero-eyebrow {
+    margin: 0;
   }
 
-
-  /* Hero */
-  .hero {
-    padding: 80px 0 64px;
-  }
-
-  .eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-accent-yellow-text);
-    margin: 0 0 20px;
-  }
-
-  .headline {
-    font-size: clamp(40px, 7vw, 64px);
-    font-weight: 600;
+  .hero-headline {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(48px, 6vw, 72px);
+    font-weight: 400;
     line-height: 1.05;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.01em;
     color: var(--text-primary);
-    margin: 0 0 24px;
+    margin: 0;
   }
 
-  .subhead {
-    font-size: 16px;
-    line-height: 1.65;
+  .hero-sub {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
     color: var(--text-secondary);
-    max-width: 520px;
-    margin: 0 0 40px;
+    max-width: 480px;
   }
 
-  .hero-actions {
+  /* Leaderboard */
+  .leaderboard-section {
+    padding: 0 0 0;
+  }
+
+  /* Bridge */
+  .bridge {
+    padding: 56px 0;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 24px;
-  }
-
-  /* Pillars */
-  .pillars {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    padding: 64px 0;
     border-top: 1px solid var(--color-border-default);
   }
 
-  @media (max-width: 600px) {
-    .pillars {
-      grid-template-columns: 1fr;
-    }
+  .bridge-line {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 400;
+    color: var(--text-secondary);
+    max-width: 560px;
+    line-height: 1.3;
   }
 
-  .pillar {
+  /* How it works */
+  .how {
+    padding: 56px 0;
+    border-top: 1px solid var(--color-border-default);
+  }
+
+  .section-eyebrow {
+    margin: 0 0 40px;
+  }
+
+  .how-body {
+    display: flex;
+    gap: 64px;
+    align-items: flex-start;
+  }
+
+  .how-demo {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .how-caption {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--text-tertiary);
+    max-width: 320px;
+  }
+
+  .pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    flex: 1;
+    padding-top: 4px;
   }
 
   .pillar h3 {
-    margin: 0;
+    margin: 0 0 6px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text-primary);
   }
 
   .pillar p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* What Capito is not */
+  .not-section {
+    padding: 56px 0;
+    border-top: 1px solid var(--color-border-default);
+  }
+
+  .not-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 64px;
+  }
+
+  .not-verdict {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-weight: 400;
+    color: var(--text-primary);
+    margin: 0 0 8px;
+    line-height: 1.1;
+  }
+
+  .not-sub {
     margin: 0;
     font-size: 13px;
     line-height: 1.6;
@@ -201,13 +283,13 @@ import BrowserCTA from '../components/BrowserCTA.astro';
     border: 1px solid var(--color-accent-yellow-border);
     border-radius: 10px;
     padding: 40px;
-    margin-bottom: 64px;
+    margin-bottom: 56px;
   }
 
   .callout h2 {
     margin: 0 0 12px;
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 500;
     color: var(--color-accent-yellow);
     letter-spacing: -0.02em;
   }
@@ -225,10 +307,10 @@ import BrowserCTA from '../components/BrowserCTA.astro';
     padding-bottom: 80px;
   }
 
-  .pricing h2 {
-    margin: 0 0 32px;
-    font-size: 24px;
-    font-weight: 600;
+  .pricing-heading {
+    margin: 0 0 28px;
+    font-size: 22px;
+    font-weight: 500;
     color: var(--text-primary);
     letter-spacing: -0.02em;
   }
@@ -239,75 +321,19 @@ import BrowserCTA from '../components/BrowserCTA.astro';
     gap: 16px;
   }
 
-  @media (max-width: 600px) {
+  /* Responsive */
+  @media (max-width: 768px) {
+    .how-body {
+      flex-direction: column;
+    }
+
+    .not-list {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
     .plans {
       grid-template-columns: 1fr;
     }
-  }
-
-  .plan {
-    background: var(--color-surface-raised);
-    border: 1px solid var(--color-border-default);
-    border-radius: 10px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    position: relative;
-  }
-
-  .plan-featured {
-    border-color: var(--color-accent-yellow-border);
-    background: var(--color-accent-yellow-soft);
-  }
-
-  .plan-badge {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-accent-yellow-text);
-  }
-
-  .plan-name {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-
-  .plan-featured .plan-name {
-    display: none;
-  }
-
-  .plan-price {
-    font-size: 32px;
-    font-weight: 600;
-    color: var(--text-primary);
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-
-  .plan-price span {
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--text-tertiary);
-  }
-
-  .plan-desc {
-    font-size: 12px;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    flex: 1;
-  }
-
-  /* Footer */
-  .footer {
-    border-top: 1px solid var(--color-border-default);
-    padding: 32px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    color: var(--text-tertiary);
   }
 </style>

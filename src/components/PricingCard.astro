@@ -1,0 +1,78 @@
+---
+interface Props {
+  name: string;
+  price: string;
+  period?: string;
+  description: string;
+  cta: string;
+  featured?: boolean;
+}
+
+const { name, price, period, description, cta, featured = false } = Astro.props;
+---
+
+<div class={`plan ${featured ? "plan-featured" : ""}`}>
+  {featured && <div class="plan-badge">Most popular</div>}
+  <div class="plan-name">{name}</div>
+  <div class="plan-price">
+    {price}{period && <span class="period">{period}</span>}
+  </div>
+  <div class="plan-desc">{description}</div>
+  <a href="#" class="btn-primary">{cta}</a>
+</div>
+
+<style>
+  .plan {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-default);
+    border-radius: 10px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .plan-featured {
+    border-color: var(--color-accent-yellow-border);
+    background: var(--color-accent-yellow-soft);
+  }
+
+  .plan-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent-yellow-text);
+  }
+
+  .plan-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .plan-featured .plan-name {
+    display: none;
+  }
+
+  .plan-price {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .period {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-tertiary);
+  }
+
+  .plan-desc {
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    flex: 1;
+  }
+</style>
