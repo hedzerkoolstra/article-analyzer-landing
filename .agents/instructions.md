@@ -12,6 +12,7 @@ The aim is to produce high-quality, maintainable code that adheres to best pract
 
 Relevant skills are found in .agent/skills directory. Topics:
 
+- capito-tone-of-voice
 - code-architecture
 - code-conventions
 - ui-design
@@ -58,3 +59,4 @@ Primary CTA: install the browser extension
 - **Astro** static site — no client-side framework by default.
 - Deployed on Vercel
 - Dark-mode-only design; shared design token set with the extension UI
+- **Analytics**: Plausible Analytics (cookieless). Page views are tracked automatically. Register `window.plausible?.('Event name', { props: {...} })` on all meaningful user interactions — CTAs, expand/collapse toggles, key navigation actions. Do not track every click; only interactions that signal intent or conversion.

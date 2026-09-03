@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { outlets, type Outlet } from '../../data/fixtures';
+
+export function getStaticPaths() {
+  return outlets.map((outlet) => ({
+    params: { slug: outlet.slug },
+    props: { outlet },
+  }));
+}
+
+interface Props {
+  outlet: Outlet;
+}
+
+const { outlet } = Astro.props;
+---
+
+<BaseLayout
+  title={`${outlet.name} — Capito`}
+  description={`Propaganda score and technique breakdown for ${outlet.name}.`}
+>
+  <h1>{outlet.name}</h1>
+</BaseLayout>
