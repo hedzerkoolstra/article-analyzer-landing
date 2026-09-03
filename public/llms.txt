@@ -1,0 +1,22 @@
+# Capito
+
+> A browser extension that detects propaganda techniques and bias in online articles — while you read them.
+
+Capito analyzes article text in real time and surfaces persuasion techniques as named, categorized findings. It does not fact-check. It counts technique density in writing style. Scores are reproducible and methodology is public.
+
+## The Capito Index
+
+A leaderboard ranking news outlets by technique density, aggregated from a controlled sample of articles analyzed by the same engine that runs in your browser. Rolling 6-month window, updated weekly. Scores reflect writing style, not editorial stance.
+
+## Key pages
+
+- `/` — Homepage with the Capito Index leaderboard
+- `/techniques` — Full taxonomy field guide
+- `/techniques/[slug]` — Per-technique entry with definition, examples, and cognitive mechanism
+- `/outlets/[slug]` — Per-outlet score history, technique distribution, and example findings
+- `/methodology` — How scores are calculated and the leaderboard is built
+- `/privacy` — Privacy policy
+
+## Install
+
+Available as a browser extension for Chrome and Firefox. Free tier: 3 analyses/month. Plus: €4/mo. Pro: €16/mo.

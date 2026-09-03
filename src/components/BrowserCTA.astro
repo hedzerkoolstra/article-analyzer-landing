@@ -5,32 +5,6 @@ interface Props {
 const { size = 'default' } = Astro.props;
 ---
 
-<a
-  href="#"
-  class:list={['btn-primary', size === 'lg' && 'btn-lg', 'browser-cta']}
-  data-chrome-href="#"
-  data-firefox-href="#"
->
-  Add to Chrome — it's free
+<a href="#" class:list={['btn-primary', size === 'lg' && 'btn-lg']}>
+  Get the extension
 </a>
-
-<script>
-  function detectBrowser(): 'firefox' | 'chrome' {
-    if (typeof window === 'undefined') return 'chrome';
-    const ua = navigator.userAgent;
-    if (ua.includes('Firefox/')) return 'firefox';
-    return 'chrome';
-  }
-
-  document.querySelectorAll<HTMLAnchorElement>('.browser-cta').forEach((el) => {
-    const browser = detectBrowser();
-    if (browser === 'firefox') {
-      el.textContent = "Add to Firefox — it's free";
-      el.href = el.dataset.firefoxHref ?? '#';
-    } else {
-      el.textContent = "Add to Chrome — it's free";
-      el.href = el.dataset.chromeHref ?? '#';
-    }
-  });
-</script>
-
