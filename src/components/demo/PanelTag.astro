@@ -1,0 +1,96 @@
+---
+interface Props {
+  typeSlug: string;
+  typeLabel: string;
+  variant?: "tag" | "pill";
+  count?: number;
+  definition?: string;
+}
+
+const { typeSlug, typeLabel, variant = "tag", count, definition } = Astro.props;
+---
+
+{
+  variant === "pill" ? (
+    <button type="button" class="panel-tag pill" data-filter-type={typeSlug} aria-pressed="false">
+      <span class="pip" />
+      <span class="label">{typeLabel}</span>
+      <span class="count">{count}</span>
+    </button>
+  ) : (
+    <span class="panel-tag tag tooltip-host">
+      <span class="pip" />
+      <span class="label">{typeLabel}</span>
+      {definition && (
+        <span class="tooltip-card" role="tooltip">
+          <span class="tooltip-label">{typeLabel}</span>
+          <span class="tooltip-text">{definition}</span>
+        </span>
+      )}
+    </span>
+  )
+}
+
+<style>
+  .panel-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px 2px 5px;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .pip {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+  }
+
+  .tag {
+    border-radius: 4px;
+    color: var(--color-accent-yellow-text);
+    background: linear-gradient(135deg, rgba(255, 216, 77, 0.13), rgba(255, 216, 77, 0.06));
+    border: 0.5px solid var(--color-accent-yellow-border);
+  }
+
+  .pill {
+    border-radius: 20px;
+    padding: 3px 9px 3px 7px;
+    color: var(--text-tertiary);
+    background: none;
+    border: 0.5px solid var(--color-border-mid);
+    cursor: pointer;
+    transition:
+      color 0.15s,
+      background 0.15s,
+      border-color 0.15s;
+  }
+
+  .pill:hover {
+    color: var(--text-secondary);
+    border-color: var(--color-border-strong);
+  }
+
+  .pill.is-active {
+    color: var(--color-accent-yellow-text);
+    background: linear-gradient(135deg, rgba(255, 216, 77, 0.13), rgba(255, 216, 77, 0.06));
+    border-color: var(--color-accent-yellow-active);
+  }
+
+  .pill:focus-visible {
+    outline: 1px solid var(--color-accent-yellow-focus);
+    outline-offset: 1px;
+  }
+
+  .count {
+    font-weight: 400;
+    opacity: 0.6;
+  }
+</style>

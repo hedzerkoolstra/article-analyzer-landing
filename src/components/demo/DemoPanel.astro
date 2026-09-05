@@ -1,0 +1,230 @@
+---
+import DemoFinding from "./DemoFinding.astro";
+import PanelTag from "./PanelTag.astro";
+import { findingTypes, quoteFor, type DemoAnalysis } from "../../data/demoAnalysis";
+
+interface Props {
+  analysis: DemoAnalysis;
+}
+
+const { analysis } = Astro.props;
+const types = findingTypes(analysis);
+---
+
+<div class={`panel tier-${analysis.tier}`} data-demo-side="panel">
+  <header class="panel-header">
+    <div class="signal-row">
+      <span class="icon-button" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </span>
+      <span class="tier-dot" />
+      <span class="tier-label">{analysis.tierLabel}</span>
+      <span class="score">{analysis.score} / 100</span>
+    </div>
+    <p class="verdict">
+      <span class="verdict-pip" />
+      {analysis.verdict}
+    </p>
+  </header>
+
+  <div class="filter-strip">
+    {types.map((type) => (
+      <PanelTag typeSlug={type.typeSlug} typeLabel={type.typeLabel} variant="pill" count={type.count} />
+    ))}
+  </div>
+
+  <div class="findings" data-tooltip-bounds>
+    <p class="findings-label">findings · {analysis.findings.length}</p>
+    {analysis.findings.map((finding) => (
+      <DemoFinding finding={finding} quote={quoteFor(analysis, finding.id)} />
+    ))}
+  </div>
+
+  <div class="utility-strip">
+    <div class="utility-actions">
+      <span class="icon-button" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 7v5l3 2" />
+        </svg>
+      </span>
+      <span class="icon-button" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 8h10M18 8h2M4 16h4M12 16h8" />
+          <circle cx="16" cy="8" r="2" />
+          <circle cx="10" cy="16" r="2" />
+        </svg>
+      </span>
+    </div>
+    <span class="avatar" aria-hidden="true">AV</span>
+  </div>
+</div>
+
+<style>
+  .panel {
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    max-width: 100%;
+    max-height: 620px;
+    flex-shrink: 0;
+    background: var(--color-surface-deep);
+    border: 0.5px solid var(--color-border-strong);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(255, 216, 77, 0.04),
+      0 24px 48px rgba(0, 0, 0, 0.5),
+      0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .tier-low {
+    --tier-color: var(--color-score-low);
+  }
+
+  .tier-medium {
+    --tier-color: var(--color-score-medium);
+  }
+
+  .tier-high {
+    --tier-color: var(--color-score-high);
+  }
+
+  .panel-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 16px 14px;
+    background:
+      linear-gradient(270deg, color-mix(in srgb, var(--tier-color) 16%, transparent), transparent 62%),
+      linear-gradient(180deg, var(--color-surface-header) 0%, transparent 100%);
+  }
+
+  .signal-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tier-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--tier-color);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--tier-color) 60%, transparent);
+    flex-shrink: 0;
+  }
+
+  .tier-label {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tier-color);
+  }
+
+  .score {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+  }
+
+  .verdict {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    margin: 0;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  .verdict-pip {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-accent-yellow);
+    box-shadow: 0 0 6px var(--color-accent-yellow-focus);
+    flex-shrink: 0;
+    transform: translateY(-2px);
+  }
+
+  .filter-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 0 16px 12px;
+  }
+
+  .findings {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 4px;
+  }
+
+  .findings-label {
+    margin: 0 0 6px;
+    padding: 0 16px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  .utility-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-top: 0.5px solid var(--color-border-default);
+    background: linear-gradient(0deg, var(--color-surface-header) 0%, var(--color-surface-deep) 100%);
+  }
+
+  .utility-actions {
+    display: flex;
+    gap: 2px;
+  }
+
+  .icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    color: var(--text-tertiary);
+  }
+
+  .icon-button svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  @media (max-width: 768px) {
+    .panel {
+      width: 100%;
+      max-height: 480px;
+    }
+  }
+
+  .avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 216, 77, 0.22), rgba(255, 216, 77, 0.06));
+    border: 0.5px solid var(--color-accent-yellow-border);
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--color-accent-yellow-text);
+  }
+</style>

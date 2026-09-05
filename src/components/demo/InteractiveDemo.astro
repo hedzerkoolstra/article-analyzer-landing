@@ -1,0 +1,209 @@
+---
+import DemoArticle from "./DemoArticle.astro";
+import DemoPanel from "./DemoPanel.astro";
+import { demoAnalysis } from "../../data/demoAnalysis";
+---
+
+<div class="demo" data-demo-root>
+  <DemoArticle analysis={demoAnalysis} />
+  <DemoPanel analysis={demoAnalysis} />
+</div>
+
+<script>
+  declare global {
+    interface Window {
+      plausible?: (event: string, options?: { props: Record<string, string> }) => void;
+    }
+  }
+
+  const ACTIVE_CLASS = "is-active";
+
+  const root = document.querySelector<HTMLElement>("[data-demo-root]");
+
+  if (root) {
+    const bound = [...root.querySelectorAll<HTMLElement>("[data-finding-id]")];
+    const rows = [...root.querySelectorAll<HTMLElement>("[data-type-slug]")];
+    const pills = [...root.querySelectorAll<HTMLElement>("[data-filter-type]")];
+    const activeTypes = new Set<string>();
+
+    let selectedId: string | null = null;
+    let hoveredId: string | null = null;
+    let engaged = false;
+
+    /** Reports the first interaction with the demo, once per page view. */
+    function trackEngagement() {
+      if (engaged) return;
+      engaged = true;
+      window.plausible?.("Demo engaged");
+    }
+
+    /** Returns true when the visitor asked for reduced motion. */
+    function prefersReducedMotion(): boolean {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+
+    /** Flips a tooltip below or to the right of its trigger when it would leave the panel. */
+    function placeTooltip(host: HTMLElement) {
+      const card = host.querySelector<HTMLElement>(".tooltip-card");
+      if (!card) return;
+
+      const bounds = (host.closest<HTMLElement>("[data-tooltip-bounds]") ?? root!).getBoundingClientRect();
+      const trigger = host.getBoundingClientRect();
+
+      card.classList.toggle("below", trigger.top - bounds.top < card.offsetHeight + 8);
+      card.classList.toggle("align-end", trigger.left + card.offsetWidth > bounds.right - 8);
+    }
+
+    /** Highlights the hovered or selected finding on both sides and clears the rest. */
+    function render() {
+      const activeId = hoveredId ?? selectedId;
+      for (const element of bound) {
+        const id = element.dataset.findingId;
+        element.classList.toggle(ACTIVE_CLASS, id === activeId);
+        if (element.hasAttribute("aria-pressed")) {
+          element.setAttribute("aria-pressed", String(id === selectedId));
+        }
+      }
+    }
+
+    /** Scrolls the opposite column's element for a finding into view. */
+    function revealCounterpart(id: string, side: string) {
+      const counterpart = bound.find(
+        (element) =>
+          element.dataset.findingId === id &&
+          element.closest<HTMLElement>("[data-demo-side]")?.dataset.demoSide !== side,
+      );
+      counterpart?.scrollIntoView({
+        block: "nearest",
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+      });
+    }
+
+    /** Selects a finding, or clears the selection when that finding is already selected. */
+    function selectFinding(element: HTMLElement) {
+      const id = element.dataset.findingId;
+      if (!id) return;
+
+      const side = element.closest<HTMLElement>("[data-demo-side]")?.dataset.demoSide ?? "";
+      selectedId = selectedId === id ? null : id;
+      render();
+      trackEngagement();
+
+      if (!selectedId) return;
+      revealCounterpart(id, side);
+      window.plausible?.("Demo finding opened", { props: { technique: id, source: side } });
+    }
+
+    /** Shows only the findings whose type is selected in the filter strip. */
+    function applyFilter() {
+      const showAll = activeTypes.size === 0;
+
+      for (const row of rows) {
+        row.hidden = !showAll && !activeTypes.has(row.dataset.typeSlug ?? "");
+      }
+
+      for (const pill of pills) {
+        const on = activeTypes.has(pill.dataset.filterType ?? "");
+        pill.classList.toggle(ACTIVE_CLASS, on);
+        pill.setAttribute("aria-pressed", String(on));
+      }
+
+      const selectedRow = rows.find((row) => row.dataset.findingId === selectedId);
+      if (selectedRow?.hidden) {
+        selectedId = null;
+        render();
+      }
+    }
+
+    /** Adds or removes a technique type from the filter selection. */
+    function toggleFilter(slug: string) {
+      if (activeTypes.has(slug)) {
+        activeTypes.delete(slug);
+      } else {
+        activeTypes.add(slug);
+      }
+      applyFilter();
+      trackEngagement();
+      window.plausible?.("Demo filter used", { props: { type: slug } });
+    }
+
+    root.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement;
+
+      const pill = target.closest<HTMLElement>("[data-filter-type]");
+      if (pill?.dataset.filterType) {
+        toggleFilter(pill.dataset.filterType);
+        return;
+      }
+
+      const element = target.closest<HTMLElement>("[data-finding-id]");
+      if (element) selectFinding(element);
+    });
+
+    root.addEventListener("keydown", (event) => {
+      const target = event.target as HTMLElement;
+
+      if (event.key === "Escape") {
+        selectedId = null;
+        render();
+        return;
+      }
+
+      if (event.key !== "Enter" && event.key !== " ") return;
+      if (target.tagName === "BUTTON") return;
+
+      const element = target.closest<HTMLElement>("[data-finding-id]");
+      if (!element) return;
+
+      event.preventDefault();
+      selectFinding(element);
+    });
+
+    root.addEventListener("mouseover", (event) => {
+      const target = event.target as HTMLElement;
+
+      const host = target.closest<HTMLElement>(".tooltip-host");
+      if (host) placeTooltip(host);
+
+      const element = target.closest<HTMLElement>("[data-finding-id]");
+      hoveredId = element?.dataset.findingId ?? null;
+      render();
+    });
+
+    root.addEventListener("mouseleave", () => {
+      hoveredId = null;
+      render();
+    });
+
+    root.addEventListener("focusin", (event) => {
+      const target = event.target as HTMLElement;
+
+      const host = target.closest<HTMLElement>(".tooltip-host");
+      if (host) placeTooltip(host);
+
+      const element = target.closest<HTMLElement>("[data-finding-id]");
+      hoveredId = element?.dataset.findingId ?? null;
+      render();
+    });
+
+    root.addEventListener("focusout", () => {
+      hoveredId = null;
+      render();
+    });
+  }
+</script>
+
+<style>
+  .demo {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .demo {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+</style>

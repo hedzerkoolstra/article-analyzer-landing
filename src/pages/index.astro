@@ -1,17 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BrowserCTA from '../components/BrowserCTA.astro';
-import LeaderboardTable from '../components/LeaderboardTable.astro';
-import PanelMock from '../components/PanelMock.astro';
+// import LeaderboardTable from '../components/LeaderboardTable.astro';
+import InteractiveDemo from '../components/demo/InteractiveDemo.astro';
 import PricingCard from '../components/PricingCard.astro';
 import SectionLabel from '../components/SectionLabel.astro';
-import { outlets } from '../data/fixtures';
+// import { outlets } from '../data/fixtures';
 ---
 
 <BaseLayout
   title="Capito — propaganda analysis for the article you're reading"
   description="Propaganda analysis for online articles. Every article gets its own score and the techniques behind it are named."
 >
+  {/* Leaderboard structured data — restore together with the leaderboard section
   <slot name="head" slot="head">
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -26,35 +27,13 @@ import { outlets } from '../data/fixtures';
       })),
     })} />
   </slot>
+  */}
 
   <!-- Product hero -->
   <section class="hero">
     <h1 class="hero-headline">Propaganda is everywhere.</h1>
     <p class="hero-sub">See it with Capito. Analyze any article on the web.</p>
     <BrowserCTA size="lg" />
-  </section>
-
-  <!-- Leaderboard -->
-  <section class="leaderboard-section" id="leaderboard">
-    <div class="leaderboard-head">
-      <p class="leaderboard-eyebrow"><SectionLabel label="Outlet scores" /></p>
-      <h2 class="leaderboard-heading">The worst offenders so far.</h2>
-      <p class="leaderboard-intro">
-        Every score comes from an article a reader chose to analyze. The analysis is
-        the same one that runs in your browser.
-      </p>
-    </div>
-    <LeaderboardTable outlets={outlets} />
-  </section>
-
-  <!-- How it works -->
-  <section class="how" id="how-it-works">
-    <p class="section-eyebrow"><SectionLabel label="How it works" /></p>
-
-    <div class="how-demo">
-      <PanelMock />
-      <p class="how-caption">The panel sits beside the article while you read.</p>
-    </div>
   </section>
 
   <!-- Value propositions -->
@@ -71,6 +50,33 @@ import { outlets } from '../data/fixtures';
       <h2>Build understanding</h2>
       <p>Learn how propaganda is applied.</p>
     </div>
+  </section>
+
+  {/* Leaderboard — not shipping yet, restore with the imports and structured data above
+  <section class="leaderboard-section" id="leaderboard">
+    <div class="leaderboard-head">
+      <p class="leaderboard-eyebrow"><SectionLabel label="Outlet scores" /></p>
+      <h2 class="leaderboard-heading">The worst offenders so far.</h2>
+      <p class="leaderboard-intro">
+        Every score comes from an article a reader chose to analyze. The analysis is
+        the same one that runs in your browser.
+      </p>
+    </div>
+    <LeaderboardTable outlets={outlets} />
+  </section>
+  */}
+
+  <!-- How it works -->
+  <section class="how" id="how-it-works">
+    <div class="how-head">
+      <p class="how-eyebrow"><SectionLabel label="How it works" /></p>
+      <h2 class="how-heading">Every finding names the sentence it came from.</h2>
+      <p class="how-intro">
+        Click a finding to see it in the article. Click a highlight to see the finding.
+      </p>
+    </div>
+
+    <InteractiveDemo />
   </section>
 
   <!-- Pricing -->
@@ -172,24 +178,33 @@ import { outlets } from '../data/fixtures';
     margin: 0 0 40px;
   }
 
-  .how-demo {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  .how-head {
+    margin-bottom: 40px;
   }
 
-  .how-caption {
+  .how-eyebrow {
+    margin: 0 0 12px;
+  }
+
+  .how-heading {
+    margin: 0 0 10px;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .how-intro {
     margin: 0;
-    font-size: 11px;
+    font-size: 13px;
     line-height: 1.6;
-    color: var(--text-tertiary);
-    max-width: 320px;
+    color: var(--text-secondary);
+    max-width: 520px;
   }
 
   /* Value propositions */
   .values {
     padding: 96px 0;
-    border-top: 1px solid var(--color-border-default);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 88px;
