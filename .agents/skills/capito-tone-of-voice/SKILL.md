@@ -85,12 +85,55 @@ Name what the technique does. Never what the author wants.
 
 ## Vocabulary
 
-- **Propaganda** is the noun the site leads with. Techniques are the method, not the
-  essence — `technique` stays down at finding level as the evidence layer.
+- **Propaganda** is the noun the site leads with.
+- **Play** is what a sentence is doing. It is the general noun at every altitude
+  below propaganda, and it replaces `technique` in copy.
+- **Pattern** is reserved for the aggregate — what recurs across an outlet's
+  articles. A single sentence is never a pattern, only an instance of one.
 - **Credibility** is what the score measures. Higher score = less credibility.
 - No qualifiers on the install ask: `Get the extension`, not `Add to Chrome — it's free`.
 - Sections are named descriptively — `Outlet scores`, not `The Capito index`.
 - Numbers stay concrete: `Start with the free plan and get 3 articles per month.`
+
+### The ladder
+
+Each rung has one word. Reaching for a lower rung's word higher up is the most
+common failure — it produces copy that captions the screen instead of framing it.
+
+| Rung | Word |
+|---|---|
+| Essence | propaganda |
+| What a sentence is doing | play |
+| Category | the six type labels |
+| Across an outlet's articles | pattern |
+| Product output | mark, finding, verdict, score |
+
+### Play
+
+`Play` carries a playbook — a known set of 61 — which is why it beat `move`,
+`pattern` and `device`. It says something was run to get a result without saying
+anyone meant it, which is the line **Attribution of intent** draws.
+
+Use the British sense — *a play for* — never the American sports sense.
+
+```
+✓  Every play it makes on you gets named.
+✓  Every play for your agreement gets marked.
+✗  Every play it runs gets named.            (American sports register)
+```
+
+The article makes plays. Capito does not find them, catch them, or expose them.
+
+Ruled out, and why they stay ruled out:
+
+| Rejected | Why |
+|---|---|
+| `tactic` · `trick` · `gambit` | Posit a strategist. Banned by attribution of intent. |
+| `spin` · `slant` | Imply falsehood and political direction. Kills "no political axis". |
+| `mechanism` | Clinical abstraction. |
+| `method` | Same rung as the word it would replace. |
+| `device` | Collides with the `Rhetorical device` type label. |
+| `pattern` (at sentence level) | A pattern is a property of many instances. Reserved for the aggregate rung. |
 
 ## Second person
 

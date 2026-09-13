@@ -70,10 +70,7 @@ import SectionLabel from '../components/SectionLabel.astro';
   <section class="how" id="how-it-works">
     <div class="how-head">
       <p class="how-eyebrow"><SectionLabel label="How it works" /></p>
-      <h2 class="how-heading">Every finding names the sentence it came from.</h2>
-      <p class="how-intro">
-        Click a finding to see it in the article. Click a highlight to see the finding.
-      </p>
+      <h2 class="how-heading">Analyze the article. Every play gets marked.</h2>
     </div>
 
     <InteractiveDemo />
@@ -187,19 +184,11 @@ import SectionLabel from '../components/SectionLabel.astro';
   }
 
   .how-heading {
-    margin: 0 0 10px;
+    margin: 0;
     font-size: 22px;
     font-weight: 500;
     color: var(--text-primary);
     letter-spacing: -0.02em;
-  }
-
-  .how-intro {
-    margin: 0;
-    font-size: 13px;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    max-width: 520px;
   }
 
   /* Value propositions */

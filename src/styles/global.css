@@ -110,6 +110,10 @@ body {
   color: var(--text-primary);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   height: 100%;

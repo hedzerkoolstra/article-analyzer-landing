@@ -4,7 +4,7 @@ export interface Outlet {
   score: number;
   rank: number;
   trend: number;
-  signatureMove: { typeSlug: string; typeLabel: string };
+  signaturePlay: { typeSlug: string; typeLabel: string };
   n: number;
 }
 
@@ -29,21 +29,21 @@ export interface Finding {
 }
 
 export const outlets: Outlet[] = [
-  { slug: "the-daily-standard", name: "The Daily Standard", score: 79, rank: 1, trend: 1, signatureMove: { typeSlug: "emotional-manipulation", typeLabel: "Emotional manipulation" }, n: 84 },
-  { slug: "national-post-online", name: "National Post Online", score: 72, rank: 2, trend: -1, signatureMove: { typeSlug: "framing-omission", typeLabel: "Framing & omission" }, n: 71 },
-  { slug: "the-morning-herald", name: "The Morning Herald", score: 66, rank: 3, trend: 0, signatureMove: { typeSlug: "rhetorical-device", typeLabel: "Rhetorical device" }, n: 92 },
-  { slug: "global-times-weekly", name: "Global Times Weekly", score: 61, rank: 4, trend: 2, signatureMove: { typeSlug: "false-authority", typeLabel: "False authority" }, n: 56 },
-  { slug: "the-independent-voice", name: "The Independent Voice", score: 55, rank: 5, trend: -2, signatureMove: { typeSlug: "logical-fallacy", typeLabel: "Logical fallacy" }, n: 103 },
-  { slug: "metro-daily", name: "Metro Daily", score: 50, rank: 6, trend: 1, signatureMove: { typeSlug: "emotional-manipulation", typeLabel: "Emotional manipulation" }, n: 67 },
-  { slug: "the-evening-post", name: "The Evening Post", score: 43, rank: 7, trend: 0, signatureMove: { typeSlug: "framing-omission", typeLabel: "Framing & omission" }, n: 88 },
-  { slug: "civic-press", name: "Civic Press", score: 38, rank: 8, trend: 3, signatureMove: { typeSlug: "data-evidence", typeLabel: "Data & evidence issue" }, n: 44 },
-  { slug: "the-broadsheet", name: "The Broadsheet", score: 32, rank: 9, trend: -1, signatureMove: { typeSlug: "rhetorical-device", typeLabel: "Rhetorical device" }, n: 79 },
-  { slug: "republic-gazette", name: "Republic Gazette", score: 27, rank: 10, trend: 0, signatureMove: { typeSlug: "logical-fallacy", typeLabel: "Logical fallacy" }, n: 61 },
-  { slug: "northern-dispatch", name: "Northern Dispatch", score: 21, rank: 11, trend: -3, signatureMove: { typeSlug: "false-authority", typeLabel: "False authority" }, n: 38 },
-  { slug: "the-wire-report", name: "The Wire Report", score: 19, rank: 12, trend: 2, signatureMove: { typeSlug: "emotional-manipulation", typeLabel: "Emotional manipulation" }, n: 55 },
-  { slug: "continental-news", name: "Continental News", score: 14, rank: 13, trend: 1, signatureMove: { typeSlug: "framing-omission", typeLabel: "Framing & omission" }, n: 49 },
-  { slug: "state-media-today", name: "State Media Today", score: 8, rank: 14, trend: 0, signatureMove: { typeSlug: "emotional-manipulation", typeLabel: "Emotional manipulation" }, n: 97 },
-  { slug: "the-peoples-tribune", name: "The People's Tribune", score: 3, rank: 15, trend: 1, signatureMove: { typeSlug: "false-authority", typeLabel: "False authority" }, n: 82 },
+  { slug: "the-daily-standard", name: "The Daily Standard", score: 79, rank: 1, trend: 1, signaturePlay: { typeSlug: "emotional-manipulation", typeLabel: "Emotional manipulation" }, n: 84 },
+  { slug: "national-post-online", name: "National Post Online", score: 72, rank: 2, trend: -1, signaturePlay: { typeSlug: "framing-omission", typeLabel: "Framing & omission" }, n: 71 },
+  { slug: "the-morning-herald", name: "The Morning Herald", score: 66, rank: 3, trend: 0, signaturePlay: { typeSlug: "rhetorical-device", typeLabel: "Rhetorical device" }, n: 92 },
+  { slug: "global-times-weekly", name: "Global Times Weekly", score: 61, rank: 4, trend: 2, signaturePlay: { typeSlug: "false-authority", typeLabel: "False authority" }, n: 56 },
+  { slug: "the-independent-voice", name: "The Independent Voice", score: 55, rank: 5, trend: -2, signaturePlay: { typeSlug: "logical-fallacy", typeLabel: "Logical fallacy" }, n: 103 },
+  { slug: "metro-daily", name: "Metro Daily", score: 50, rank: 6, trend: 1, signaturePlay: { typeSlug: "emotional-manipulation", typeLabel: "Emotional manipulation" }, n: 67 },
+  { slug: "the-evening-post", name: "The Evening Post", score: 43, rank: 7, trend: 0, signaturePlay: { typeSlug: "framing-omission", typeLabel: "Framing & omission" }, n: 88 },
+  { slug: "civic-press", name: "Civic Press", score: 38, rank: 8, trend: 3, signaturePlay: { typeSlug: "data-evidence", typeLabel: "Data & evidence issue" }, n: 44 },
+  { slug: "the-broadsheet", name: "The Broadsheet", score: 32, rank: 9, trend: -1, signaturePlay: { typeSlug: "rhetorical-device", typeLabel: "Rhetorical device" }, n: 79 },
+  { slug: "republic-gazette", name: "Republic Gazette", score: 27, rank: 10, trend: 0, signaturePlay: { typeSlug: "logical-fallacy", typeLabel: "Logical fallacy" }, n: 61 },
+  { slug: "northern-dispatch", name: "Northern Dispatch", score: 21, rank: 11, trend: -3, signaturePlay: { typeSlug: "false-authority", typeLabel: "False authority" }, n: 38 },
+  { slug: "the-wire-report", name: "The Wire Report", score: 19, rank: 12, trend: 2, signaturePlay: { typeSlug: "emotional-manipulation", typeLabel: "Emotional manipulation" }, n: 55 },
+  { slug: "continental-news", name: "Continental News", score: 14, rank: 13, trend: 1, signaturePlay: { typeSlug: "framing-omission", typeLabel: "Framing & omission" }, n: 49 },
+  { slug: "state-media-today", name: "State Media Today", score: 8, rank: 14, trend: 0, signaturePlay: { typeSlug: "emotional-manipulation", typeLabel: "Emotional manipulation" }, n: 97 },
+  { slug: "the-peoples-tribune", name: "The People's Tribune", score: 3, rank: 15, trend: 1, signaturePlay: { typeSlug: "false-authority", typeLabel: "False authority" }, n: 82 },
 ];
 
 export const taxonomy: TechniqueType[] = [
